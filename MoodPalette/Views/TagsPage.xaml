@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MoodPalette.ViewModels"
+             x:Class="MoodPalette.TagsPage"
+             Title="Керування тегами">
+
+    <ContentPage.BindingContext>
+        <viewmodels:TagsViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="20" Spacing="10">
+        
+        <Entry Placeholder="Введіть назву тегу"
+               Text="{Binding NewTagName, Mode=TwoWay}" />
+
+        
+        <Button Text="Додати тег"
+                Command="{Binding AddTagCommand}" />
+
+        
+        <CollectionView ItemsSource="{Binding Tags}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        <Label Text="{Binding Name}"
+                               VerticalOptions="Center" />
+                        <Button Text="Видалити"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TagsViewModel}}, Path=DeleteTagCommand}"
+                                CommandParameter="{Binding .}"
+                                BackgroundColor="Red"
+                                TextColor="White" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

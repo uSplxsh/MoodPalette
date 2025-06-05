@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:MoodPalette"
+       x:Class="MoodPalette.AppShell"
+       Title="MoodPalette">
+
+    <TabBar>
+        <Tab Title="Головна">
+            <ShellContent ContentTemplate="{DataTemplate views:MainPage}" />
+        </Tab>
+        <Tab Title="Статистика">
+            <ShellContent ContentTemplate="{DataTemplate views:StatisticsPage}" />
+        </Tab>
+        <Tab Title="Теги">
+            <ShellContent ContentTemplate="{DataTemplate views:TagsPage}" />
+        </Tab>
+        <Tab Title="Сповіщення">
+            <ShellContent ContentTemplate="{DataTemplate views:NotificationsPage}" />
+        </Tab>
+    </TabBar>
+</Shell>

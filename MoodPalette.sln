@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoodPalette", "MoodPalette\MoodPalette.csproj", "{C8BAF349-AC2E-4675-8BBA-BBC0430C2E47}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8BAF349-AC2E-4675-8BBA-BBC0430C2E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8BAF349-AC2E-4675-8BBA-BBC0430C2E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8BAF349-AC2E-4675-8BBA-BBC0430C2E47}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C8BAF349-AC2E-4675-8BBA-BBC0430C2E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8BAF349-AC2E-4675-8BBA-BBC0430C2E47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8BAF349-AC2E-4675-8BBA-BBC0430C2E47}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {463D34C9-EFA3-4411-B238-03A8021BA2E9}
+	EndGlobalSection
+EndGlobal

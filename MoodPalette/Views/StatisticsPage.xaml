@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MoodPalette.ViewModels"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             xmlns:converters="clr-namespace:MoodPalette.Converters"
+             x:Class="MoodPalette.StatisticsPage"
+             Title="Статистика"
+             x:Name="StatisticsPageRef">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NullToBooleanConverter x:Key="NullToBooleanConverter" />
+            <converters:NotNullToBooleanConverter x:Key="NotNullToBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <viewmodels:StatisticsViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+                <Button Text="←"
+                        Command="{Binding PreviousMonthCommand}"
+                        FontSize="Large"
+                        WidthRequest="50" />
+                <Label Text="{Binding SelectedDate, StringFormat='{0:MMMM yyyy}'}"
+                       FontSize="Large"
+                       VerticalOptions="Center" />
+                <Button Text="→"
+                        Command="{Binding NextMonthCommand}"
+                        FontSize="Large"
+                        WidthRequest="50" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
+                <Label Text="Фільтрувати по тегу" VerticalOptions="Center" />
+                <Switch IsToggled="{Binding IsFilterByTagEnabled}" />
+            </StackLayout>
+
+            <Picker Title="Фільтр по тегу"
+                    ItemsSource="{Binding Tags}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding SelectedFilterTag, Mode=TwoWay}" />
+
+            <StackLayout HorizontalOptions="Center">
+                <Label Text="Кругова діаграма настрою"
+                       FontSize="Large"
+                       HorizontalOptions="Center" />
+
+                <Label Text="Немає даних"
+                       FontSize="Medium"
+                       TextColor="Gray"
+                       HorizontalOptions="Center"
+                       IsVisible="{Binding MoodChart, Converter={StaticResource NullToBooleanConverter}}" />
+
+                <ContentView x:Name="ChartContainer"
+                             IsVisible="{Binding MoodChart, Converter={StaticResource NotNullToBooleanConverter}}">
+                    <microcharts:ChartView x:Name="MoodChartView"
+                                           Chart="{Binding MoodChart}"
+                                           HeightRequest="200"
+                                           WidthRequest="200" />
+                </ContentView>
+            </StackLayout>
+
+            <Label Text="Кольорова мозаїка"
+                   FontSize="Large"
+                   HorizontalOptions="Center" />
+
+            <FlexLayout BindableLayout.ItemsSource="{Binding ColorTiles}"
+                        Wrap="Wrap"
+                        JustifyContent="Start"
+                        AlignItems="Start">
+
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="0"
+                               HasShadow="False"
+                               BackgroundColor="Transparent">
+
+                            <BoxView Color="{Binding Color}"
+                                     HeightRequest="30"
+                                     WidthRequest="30"
+                                     Margin="2"
+                                     CornerRadius="5">
+                                <BoxView.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                        Command="{Binding BindingContext.ShowMoodDetailsCommand, Source={x:Reference StatisticsPageRef}}"
+                                        CommandParameter="{Binding}" />
+                                </BoxView.GestureRecognizers>
+                            </BoxView>
+
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+
+            </FlexLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
