@@ -27,7 +27,6 @@
                     SelectedItem="{Binding SelectedTimePeriod, Mode=TwoWay}"
                     ItemDisplayBinding="{Binding DisplayName}" />
 
-            <!-- Date Navigation (visible for Day and Week periods) -->
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20"
                          IsVisible="{Binding ShowDateNavigation}">
                 <Button Text="←"
