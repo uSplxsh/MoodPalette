@@ -22,7 +22,6 @@
     <ScrollView>
         <StackLayout Padding="20" Spacing="20">
 
-            <!-- Time Period Selector -->
             <Picker Title="Період"
                     ItemsSource="{Binding TimePeriods}"
                     SelectedItem="{Binding SelectedTimePeriod, Mode=TwoWay}"
@@ -44,7 +43,6 @@
                         WidthRequest="50" />
             </StackLayout>
 
-            <!-- Month Navigation (visible for Month period) -->
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20"
                          IsVisible="{Binding ShowMonthNavigation}">
                 <Button Text="←"
@@ -60,7 +58,6 @@
                         WidthRequest="50" />
             </StackLayout>
 
-            <!-- Tag Filter -->
             <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
                 <Label Text="Фільтрувати по тегу" VerticalOptions="Center" />
                 <Switch IsToggled="{Binding IsFilterByTagEnabled}" />
@@ -71,7 +68,6 @@
                     ItemDisplayBinding="{Binding Name}"
                     SelectedItem="{Binding SelectedFilterTag, Mode=TwoWay}" />
 
-            <!-- Chart Section -->
             <StackLayout HorizontalOptions="Center">
                 <Label Text="{Binding ChartTitle}"
                        FontSize="Large"
@@ -92,7 +88,6 @@
                 </ContentView>
             </StackLayout>
 
-            <!-- Color Tiles Section -->
             <Label Text="Кольорова мозаїка"
                    FontSize="Large"
                    HorizontalOptions="Center" 
