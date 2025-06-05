@@ -22,7 +22,31 @@
     <ScrollView>
         <StackLayout Padding="20" Spacing="20">
 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+            <!-- Time Period Selector -->
+            <Picker Title="Період"
+                    ItemsSource="{Binding TimePeriods}"
+                    SelectedItem="{Binding SelectedTimePeriod, Mode=TwoWay}"
+                    ItemDisplayBinding="{Binding DisplayName}" />
+
+            <!-- Date Navigation (visible for Day and Week periods) -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20"
+                         IsVisible="{Binding ShowDateNavigation}">
+                <Button Text="←"
+                        Command="{Binding PreviousPeriodCommand}"
+                        FontSize="Large"
+                        WidthRequest="50" />
+                <Label Text="{Binding PeriodDisplayText}"
+                       FontSize="Large"
+                       VerticalOptions="Center" />
+                <Button Text="→"
+                        Command="{Binding NextPeriodCommand}"
+                        FontSize="Large"
+                        WidthRequest="50" />
+            </StackLayout>
+
+            <!-- Month Navigation (visible for Month period) -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="20"
+                         IsVisible="{Binding ShowMonthNavigation}">
                 <Button Text="←"
                         Command="{Binding PreviousMonthCommand}"
                         FontSize="Large"
@@ -36,6 +60,7 @@
                         WidthRequest="50" />
             </StackLayout>
 
+            <!-- Tag Filter -->
             <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
                 <Label Text="Фільтрувати по тегу" VerticalOptions="Center" />
                 <Switch IsToggled="{Binding IsFilterByTagEnabled}" />
@@ -46,8 +71,9 @@
                     ItemDisplayBinding="{Binding Name}"
                     SelectedItem="{Binding SelectedFilterTag, Mode=TwoWay}" />
 
+            <!-- Chart Section -->
             <StackLayout HorizontalOptions="Center">
-                <Label Text="Кругова діаграма настрою"
+                <Label Text="{Binding ChartTitle}"
                        FontSize="Large"
                        HorizontalOptions="Center" />
 
@@ -58,29 +84,31 @@
                        IsVisible="{Binding MoodChart, Converter={StaticResource NullToBooleanConverter}}" />
 
                 <ContentView x:Name="ChartContainer"
-                             IsVisible="{Binding MoodChart, Converter={StaticResource NotNullToBooleanConverter}}">
+                            IsVisible="{Binding MoodChart, Converter={StaticResource NotNullToBooleanConverter}}">
                     <microcharts:ChartView x:Name="MoodChartView"
-                                           Chart="{Binding MoodChart}"
-                                           HeightRequest="200"
-                                           WidthRequest="200" />
+                           Chart="{Binding MoodChart}"
+                           HeightRequest="200"
+                           WidthRequest="200" />
                 </ContentView>
             </StackLayout>
 
+            <!-- Color Tiles Section -->
             <Label Text="Кольорова мозаїка"
                    FontSize="Large"
-                   HorizontalOptions="Center" />
+                   HorizontalOptions="Center" 
+                   IsVisible="{Binding ShowColorTiles}"/>
 
             <FlexLayout BindableLayout.ItemsSource="{Binding ColorTiles}"
                         Wrap="Wrap"
                         JustifyContent="Start"
-                        AlignItems="Start">
+                        AlignItems="Start"
+                        IsVisible="{Binding ShowColorTiles}">
 
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
                         <Frame Padding="0"
                                HasShadow="False"
                                BackgroundColor="Transparent">
-
                             <BoxView Color="{Binding Color}"
                                      HeightRequest="30"
                                      WidthRequest="30"
@@ -92,11 +120,9 @@
                                         CommandParameter="{Binding}" />
                                 </BoxView.GestureRecognizers>
                             </BoxView>
-
                         </Frame>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
-
             </FlexLayout>
         </StackLayout>
     </ScrollView>

@@ -152,12 +152,13 @@ namespace MoodPalette.ViewModels
             await _databaseService.SaveMoodAsync(mood);
             Moods.Add(mood);
 
-            
+            // Оповестить другие ViewModel об изменении
+            MessagingCenter.Send(this, "MoodSaved");
+
             SelectedColor = null;
             Note = string.Empty;
-            SelectedTag = null; 
+            SelectedTag = null;
 
-            
             Console.WriteLine($"Сохранена запись: Color={mood.Color}, Note={mood.Note}, Date={mood.Date}, TagId={mood.TagId}");
         }
 
