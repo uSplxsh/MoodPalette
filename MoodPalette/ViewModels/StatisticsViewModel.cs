@@ -30,7 +30,6 @@ namespace MoodPalette.ViewModels
         private readonly TagService _tagService;
         private bool _isLoadingMoods;
 
-        // Collections
         public ObservableCollection<Mood> Moods { get; } = new ObservableCollection<Mood>();
         public ObservableCollection<ColorTile> ColorTiles { get; } = new ObservableCollection<ColorTile>();
         public ObservableCollection<Tag> Tags { get; } = new ObservableCollection<Tag>();
@@ -41,7 +40,6 @@ namespace MoodPalette.ViewModels
             new TimePeriodItem { Period = TimePeriod.Month, DisplayName = "Місяць" }
         };
 
-        // Selected parameters
         private DateTime _selectedDate = DateTime.Now;
         public DateTime SelectedDate
         {
@@ -94,7 +92,6 @@ namespace MoodPalette.ViewModels
             }
         }
 
-        // Chart and its control
         private Chart _moodChart;
         public Chart MoodChart
         {
@@ -116,7 +113,6 @@ namespace MoodPalette.ViewModels
             private set => SetProperty(ref _chartKey, value);
         }
 
-        // UI computed properties
         public string PeriodDisplayText => SelectedTimePeriod?.Period switch
         {
             TimePeriod.Day => SelectedDate.ToString("dd.MM.yyyy"),
@@ -137,7 +133,6 @@ namespace MoodPalette.ViewModels
         public bool ShowMonthNavigation => SelectedTimePeriod?.Period == TimePeriod.Month;
         public bool ShowColorTiles => SelectedTimePeriod?.Period == TimePeriod.Month;
 
-        // Commands
         public ICommand PreviousPeriodCommand { get; }
         public ICommand NextPeriodCommand { get; }
         public ICommand PreviousMonthCommand { get; }
@@ -149,7 +144,6 @@ namespace MoodPalette.ViewModels
             _databaseService = new DatabaseService();
             _tagService = new TagService();
 
-            // Set default period to Month
             SelectedTimePeriod = TimePeriods.FirstOrDefault(p => p.Period == TimePeriod.Month);
 
             PreviousPeriodCommand = new Command(OnPreviousPeriod);
@@ -163,7 +157,6 @@ namespace MoodPalette.ViewModels
                 if (!_isLoadingMoods) await LoadMoodsAsync();
             });
 
-            // Initial data load
             Task.Run(async () =>
             {
                 await LoadTagsAsync();
